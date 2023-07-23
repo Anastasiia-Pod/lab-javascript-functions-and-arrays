@@ -1,41 +1,132 @@
 // Iteration #1: Find the maximum
-function maxOfTwoNumbers() {}
+function maxOfTwoNumbers(num1, num2) {
+  return Math.max(num1, num2);
+}
+const rEsult = maxOfTwoNumbers(105, 207);
+console.log(rEsult);
+
 
 
 
 // Iteration #2: Find longest word
 const words = ['mystery', 'brother', 'aviator', 'crocodile', 'pearl', 'orchard', 'crackpot'];
 
-function findLongestWord() {}
+function findLongestWord(words) {
+  if (!Array.isArray(words) || words.length === 0) {
+    return null;
+  }
+
+  let longestWord = words[0];
+
+  for (let i = 1; i < words.length; i++) {
+    if (words[i].length > longestWord.length) {
+      longestWord = words[i];
+    }
+  }
+
+  return longestWord;
+}
+
+let longestWord = findLongestWord(words);
+console.log(longestWord);
 
 
 
 // Iteration #3: Calculate the sum
 const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
-function sumNumbers() {}
-
+function sumNumbers(numbers) {
+  if (numbers.length===0) {
+    return 0;
+  }
+  let sum = numbers.reduce((cur,acc)=> cur + acc, 0);
+return sum;
+}
+const result = sumNumbers(numbers);
+console.log(result);
 
 
 // Iteration #3.1 Bonus:
-function sum() {}
+function sum(addition) {
+  if (addition.length === 0) {
+    return 0;
+  }
 
+  let result = 0;
+  for (const element of addition) {
+    if (typeof element === 'number') {
+      result += element;
+    } else if (typeof element === 'string') {
+      const parsedNum = parseFloat(element);
+      if (!isNaN(parsedNum)) {
+        result += parsedNum;
+      } else {
+        throw new Error("Unsupported data type: string that cannot be converted to a number");
+      }
+    } else if (typeof element === 'boolean') {
+      result += element ? 1 : 0;
+    } else {
+      throw new Error("Unsupported data type: object or array");
+    }
+  }
 
+  return result;
+}
 
 // Iteration #4: Calculate the average
 // Level 1: Array of numbers
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
-function averageNumbers() {}
+function averageNumbers(numbersAvg) {
+  if (numbersAvg.length === 0) {
+    return null;
+  } else if (numbersAvg.length === 1) {
+    return numbersAvg[0];
+  } else {
+    let sum = numbersAvg.reduce((acc, cur) => acc + cur, 0);
+    const n = numbersAvg.length;
+    let average = sum / n;
+    return average;
+  }
+}
+const aveNum = averageNumbers(numbersAvg);
+console.log(aveNum); 
 
 
 // Level 2: Array of strings
 const wordsArr = ['seat', 'correspond', 'linen', 'motif', 'hole', 'smell', 'smart', 'chaos', 'fuel', 'palace'];
 
-function averageWordLength() { }
+function averageWordLength(wordsArr) {
+  if (wordsArr.length === 0) {
+    return null;
+  } else if (wordsArr.length === 1) {
+    return wordsArr[0].length;
+  }
+
+  let sum = wordsArr.reduce((acc, cur) => acc + cur.length, 0); // Calculate the sum of word lengths
+  let average = sum / wordsArr.length; // Calculate the average
+
+  return average;
+}
+
+const averageLength = averageWordLength(wordsArr);
+console.log(averageLength);
+
 
 // Bonus - Iteration #4.1
-function avg() {}
+function avg(mixed) {
+const numbersOnly = mixed.filter((element) => typeof element === 'number');
+  if (mixed.length === 0) {
+    return null;
+}
+  let sum = numbersOnly.reduce((acc, cur) => acc + cur, 0);
+  const count = numbersOnly.length;
+  let average = sum / count;
+  return average;
+}
+const mixed = [5,7,true,'green'];
+const average = avg(mixed);
+console.log(average);
 
 // Iteration #5: Unique arrays
 const wordsUnique = [
@@ -52,15 +143,41 @@ const wordsUnique = [
   'bring'
 ];
 
-function uniquifyArray() {}
+function uniquifyArray(wordsUnique) {
+if (wordsUnique.length===0){
+  return null;
+}
+  const uniquifiedArray = [...new Set(wordsUnique)];
 
+  return uniquifiedArray;
+}
 
+const uniquifiedWords = uniquifyArray(wordsUnique);
+console.log(uniquifiedWords);
 
 // Iteration #6: Find elements
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
 
-function doesWordExist() {}
-
+function doesWordExist(wordsFind, wordToFind) {
+if (wordsFind.length===0){
+  return null;
+}
+  let count = 0;
+  for (const word of wordsFind) {
+    if (word === wordToFind) {
+      count++;
+    }
+  }
+  
+  if (count === 0) {
+    return false;
+  } else if (count === 1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+console.log(doesWordExist(wordsFind, 'machine'));
 
 
 // Iteration #7: Count repetition
@@ -78,7 +195,19 @@ const wordsCount = [
   'matter'
 ];
 
-function howManyTimes() {}
+function howManyTimes(wordsCount, wordToSearch) {
+if (wordsCount.length===0){
+  return 0;
+} 
+  let count = 0;
+  
+  for (const word of wordsCount) {
+    if (word === wordToSearch) {
+      count++;
+}
+  }
+ return count;
+}
 
 
 
@@ -106,7 +235,38 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(matrix) {
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+  let maxProduct = 0;
+  function calculateProduct(a, b, c, d) {
+    return a * b * c * d;
+  }
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols - 3; j++) {
+      const horizontalProduct = calculateProduct(matrix[i][j], matrix[i][j + 1], matrix[i][j + 2], matrix[i][j + 3]);
+      const verticalProduct = calculateProduct(matrix[j][i], matrix[j + 1][i], matrix[j + 2][i], matrix[j + 3][i]);
+
+      maxProduct = Math.max(maxProduct, horizontalProduct, verticalProduct);
+    }
+  }
+  for (let i = 0; i < rows - 3; i++) {
+    for (let j = 0; j < cols - 3; j++) {
+      const diagonalProduct = calculateProduct(matrix[i][j], matrix[i + 1][j + 1], matrix[i + 2][j + 2], matrix[i + 3][j + 3]);
+      maxProduct = Math.max(maxProduct, diagonalProduct);
+    }
+  }
+  for (let i = 0; i < rows - 3; i++) {
+    for (let j = 3; j < cols; j++) {
+      const diagonalProduct = calculateProduct(matrix[i][j], matrix[i + 1][j - 1], matrix[i + 2][j - 2], matrix[i + 3][j - 3]);
+      maxProduct = Math.max(maxProduct, diagonalProduct);
+    }
+  }
+
+  return maxProduct;
+}
+const decision = greatestProduct(matrix);
+console.log(decision);
 
 
 
